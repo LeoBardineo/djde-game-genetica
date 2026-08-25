@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b3fpl00l6cc84"]
 
+[ext_resource type="Script" uid="uid://d3nddu2ogrbn5" path="res://Scenes/main_menu.gd" id="1_28flt"]
+
 [node name="Main Menu" type="Node2D" unique_id=1456566145]
+script = ExtResource("1_28flt")
 
 [node name="Button_manager" type="Control" parent="." unique_id=1474790202]
 layout_mode = 3
@@ -31,3 +34,7 @@ offset_top = 356.0
 offset_right = 1056.0
 offset_bottom = 573.0
 text = "Quit"
+
+[connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]

@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Transcrição RNA"
+run/main_scene="uid://b3fpl00l6cc84"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
