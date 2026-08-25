@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b3fpl00l6cc84"]
+
+[node name="Main Menu" type="Node2D" unique_id=1456566145]
+
+[node name="Button_manager" type="Control" parent="." unique_id=1474790202]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Start" type="Button" parent="Button_manager" unique_id=59653854]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 77.0
+offset_right = 1060.0
+offset_bottom = 292.0
+text = "Start"
+
+[node name="Options" type="Button" parent="Button_manager" unique_id=970752922]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 355.0
+offset_right = 535.0
+offset_bottom = 571.0
+text = "Options"
+
+[node name="Quit" type="Button" parent="Button_manager" unique_id=59372107]
+layout_mode = 0
+offset_left = 615.0
+offset_top = 356.0
+offset_right = 1056.0
+offset_bottom = 573.0
+text = "Quit"
