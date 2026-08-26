@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://b3fpl00l6cc84"]
 
 [ext_resource type="Script" uid="uid://d3nddu2ogrbn5" path="res://Scenes/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://cvyvk7gx7rjia" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_line.svg" id="2_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://c2e1wxi1eshea" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_border.svg" id="3_n45e2"]
+[ext_resource type="Texture2D" uid="uid://dbixcfcalkyvm" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_depth_flat.svg" id="4_opfnp"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cp0ys"]
+load_path = "res://.godot/imported/button_rectangle_depth_flat.svg-64a4ecd9e38391ba10cea81c4fb59147.ctex"
 
 [node name="Main Menu" type="Node2D" unique_id=1456566145]
 script = ExtResource("1_28flt")
@@ -11,29 +17,63 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Start" type="Button" parent="Button_manager" unique_id=59653854]
+[node name="Start" type="TextureButton" parent="Button_manager" unique_id=653819015]
 layout_mode = 0
-offset_left = 98.0
-offset_top = 77.0
-offset_right = 1060.0
-offset_bottom = 292.0
-text = "Start"
+offset_left = 459.0
+offset_top = 159.0
+offset_right = 651.0
+offset_bottom = 223.0
+texture_normal = SubResource("CompressedTexture2D_cp0ys")
+texture_pressed = ExtResource("2_ce3w2")
+texture_hover = ExtResource("3_n45e2")
 
-[node name="Options" type="Button" parent="Button_manager" unique_id=970752922]
+[node name="Label" type="Label" parent="Button_manager/Start" unique_id=61309300]
 layout_mode = 0
-offset_left = 95.0
-offset_top = 355.0
-offset_right = 535.0
-offset_bottom = 571.0
-text = "Options"
+offset_right = 193.0
+offset_bottom = 60.0
+theme_override_constants/outline_size = 6
+text = "Começar"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
-[node name="Quit" type="Button" parent="Button_manager" unique_id=59372107]
+[node name="Options" type="TextureButton" parent="Button_manager" unique_id=467997893]
 layout_mode = 0
-offset_left = 615.0
-offset_top = 356.0
-offset_right = 1056.0
-offset_bottom = 573.0
-text = "Quit"
+offset_left = 458.0
+offset_top = 263.0
+offset_right = 650.0
+offset_bottom = 327.0
+texture_normal = ExtResource("4_opfnp")
+texture_pressed = ExtResource("2_ce3w2")
+texture_hover = ExtResource("3_n45e2")
+
+[node name="Label" type="Label" parent="Button_manager/Options" unique_id=213013010]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 60.0
+theme_override_constants/outline_size = 6
+text = "OPÇÕES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit" type="TextureButton" parent="Button_manager" unique_id=214256641]
+layout_mode = 0
+offset_left = 459.0
+offset_top = 366.0
+offset_right = 651.0
+offset_bottom = 430.0
+texture_normal = ExtResource("4_opfnp")
+texture_pressed = ExtResource("2_ce3w2")
+texture_hover = ExtResource("3_n45e2")
+
+[node name="Label" type="Label" parent="Button_manager/Quit" unique_id=689208276]
+layout_mode = 0
+offset_right = 193.0
+offset_bottom = 60.0
+theme_override_constants/outline_size = 6
+text = "SAIR"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
