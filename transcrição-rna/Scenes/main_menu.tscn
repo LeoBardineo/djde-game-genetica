@@ -1,33 +1,68 @@
 [gd_scene format=3 uid="uid://b3fpl00l6cc84"]
 
-[ext_resource type="Script" uid="uid://d3nddu2ogrbn5" path="res://Scenes/main_menu.gd" id="1_28flt"]
+[ext_resource type="Script" uid="uid://bd4ico3av6wjn" path="res://Scripts/main_menu.gd" id="1_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://cvyvk7gx7rjia" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_line.svg" id="2_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://c2e1wxi1eshea" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_border.svg" id="3_n45e2"]
 [ext_resource type="Texture2D" uid="uid://dbixcfcalkyvm" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_depth_flat.svg" id="4_opfnp"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cp0ys"]
+[sub_resource type="GDScript" id="GDScript_ce3w2"]
+script/source = "extends VBoxContainer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_start_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/main_menu.tscn\") # !! Precisa ser adicionado o path para a cena que de início do jogo. !!
+
+
+func _on_options_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/options.tscn\") # Muda para a cena de opções quando o botão Options é pressionado.
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit() # Fecha o jogo ao apertar o botão Quit.
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ce3w2"]
 load_path = "res://.godot/imported/button_rectangle_depth_flat.svg-64a4ecd9e38391ba10cea81c4fb59147.ctex"
 
-[node name="Main Menu" type="Node2D" unique_id=1456566145]
-script = ExtResource("1_28flt")
-
-[node name="Button_manager" type="Control" parent="." unique_id=1474790202]
+[node name="Main Menu" type="Control" unique_id=317442532]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ce3w2")
 
-[node name="Start" type="TextureButton" parent="Button_manager" unique_id=653819015]
+[node name="Background" type="Panel" parent="." unique_id=1002949530]
 layout_mode = 0
-offset_left = 459.0
-offset_top = 159.0
-offset_right = 651.0
-offset_bottom = 223.0
-texture_normal = SubResource("CompressedTexture2D_cp0ys")
+offset_right = 1153.0
+offset_bottom = 648.0
+
+[node name="Main Buttons" type="VBoxContainer" parent="." unique_id=1687212332]
+layout_mode = 0
+offset_left = 483.0
+offset_top = 199.0
+offset_right = 675.0
+offset_bottom = 399.0
+script = SubResource("GDScript_ce3w2")
+
+[node name="Start" type="TextureButton" parent="Main Buttons" unique_id=1519509926]
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_ce3w2")
 texture_pressed = ExtResource("2_ce3w2")
 texture_hover = ExtResource("3_n45e2")
 
-[node name="Label" type="Label" parent="Button_manager/Start" unique_id=61309300]
+[node name="Label" type="Label" parent="Main Buttons/Start" unique_id=405569650]
 layout_mode = 0
 offset_right = 193.0
 offset_bottom = 60.0
@@ -37,17 +72,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Options" type="TextureButton" parent="Button_manager" unique_id=467997893]
-layout_mode = 0
-offset_left = 458.0
-offset_top = 263.0
-offset_right = 650.0
-offset_bottom = 327.0
+[node name="Options" type="TextureButton" parent="Main Buttons" unique_id=356230343]
+layout_mode = 2
 texture_normal = ExtResource("4_opfnp")
 texture_pressed = ExtResource("2_ce3w2")
 texture_hover = ExtResource("3_n45e2")
 
-[node name="Label" type="Label" parent="Button_manager/Options" unique_id=213013010]
+[node name="Label" type="Label" parent="Main Buttons/Options" unique_id=539012645]
 layout_mode = 0
 offset_right = 192.0
 offset_bottom = 60.0
@@ -56,17 +87,13 @@ text = "OPÇÕES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Quit" type="TextureButton" parent="Button_manager" unique_id=214256641]
-layout_mode = 0
-offset_left = 459.0
-offset_top = 366.0
-offset_right = 651.0
-offset_bottom = 430.0
+[node name="Quit" type="TextureButton" parent="Main Buttons" unique_id=2012861033]
+layout_mode = 2
 texture_normal = ExtResource("4_opfnp")
 texture_pressed = ExtResource("2_ce3w2")
 texture_hover = ExtResource("3_n45e2")
 
-[node name="Label" type="Label" parent="Button_manager/Quit" unique_id=689208276]
+[node name="Label" type="Label" parent="Main Buttons/Quit" unique_id=2088418547]
 layout_mode = 0
 offset_right = 193.0
 offset_bottom = 60.0
@@ -75,6 +102,41 @@ text = "SAIR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Button_manager/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Button_manager/Quit" to="." method="_on_quit_pressed"]
+[node name="Options" type="Panel" parent="." unique_id=1064166420]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 159.0
+offset_right = 846.0
+offset_bottom = 529.0
+
+[node name="Label" type="Label" parent="Options" unique_id=610169591]
+layout_mode = 0
+offset_right = 536.0
+offset_bottom = 37.0
+text = "Opções"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="TextureButton" parent="Options" unique_id=2128580184]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 267.0
+offset_right = 365.0
+offset_bottom = 331.0
+texture_normal = ExtResource("4_opfnp")
+texture_pressed = ExtResource("2_ce3w2")
+texture_hover = ExtResource("3_n45e2")
+
+[node name="Label" type="Label" parent="Options/Back" unique_id=240387622]
+layout_mode = 0
+offset_right = 193.0
+offset_bottom = 60.0
+theme_override_constants/outline_size = 6
+text = "VOLTAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Main Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Options/Back" to="." method="_on_back_pressed"]
