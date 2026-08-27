@@ -231,10 +231,10 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 200.0
 offset_top = 215.0
-offset_right = 350.0
+offset_right = 356.0
 offset_bottom = 246.0
 theme_override_constants/outline_size = 6
-text = "Fullscreen
+text = "Tela Cheia
 
 "
 script = ExtResource("8_yhxw7")
