@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://d4c1dgijea4e4" path="res://Audios/Songs/Jammin Bread [c5hUGaYFL1M].mp3" id="5_n45e2"]
 [ext_resource type="Script" uid="uid://blbi2ifynhr4i" path="res://Scripts/audio_general_control.gd" id="6_cp0ys"]
 [ext_resource type="Script" uid="uid://ckd44swua2g7t" path="res://Scripts/audio_music_control.gd" id="6_opfnp"]
+[ext_resource type="Script" uid="uid://dqjon08t6c8v" path="res://Scripts/fullscreen_control.gd" id="8_yhxw7"]
 
 [sub_resource type="GDScript" id="GDScript_ce3w2"]
 script/source = "extends VBoxContainer
@@ -142,7 +143,6 @@ autoplay = true
 bus = &"Music"
 
 [node name="Options" type="Panel" parent="." unique_id=1064166420]
-visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 159.0
@@ -161,9 +161,9 @@ vertical_alignment = 1
 [node name="Back" type="TextureButton" parent="Options" unique_id=2128580184]
 layout_mode = 0
 offset_left = 173.0
-offset_top = 267.0
+offset_top = 282.0
 offset_right = 365.0
-offset_bottom = 331.0
+offset_bottom = 346.0
 texture_normal = ExtResource("4_opfnp")
 texture_pressed = ExtResource("2_ce3w2")
 texture_hover = ExtResource("3_n45e2")
@@ -227,9 +227,22 @@ text = "Volume da Música"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="FullscreenControl" type="CheckButton" parent="Options" unique_id=1470191523]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 215.0
+offset_right = 350.0
+offset_bottom = 246.0
+theme_override_constants/outline_size = 6
+text = "Fullscreen
+
+"
+script = ExtResource("8_yhxw7")
+
 [connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Main Buttons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Options/Back" to="." method="_on_back_pressed"]
 [connection signal="value_changed" from="Options/AudioGeneralControl" to="Options/AudioGeneralControl" method="_on_value_changed"]
 [connection signal="value_changed" from="Options/AudioMusicControl" to="Options/AudioMusicControl" method="_on_value_changed"]
+[connection signal="toggled" from="Options/FullscreenControl" to="Options/FullscreenControl" method="_on_toggled"]
