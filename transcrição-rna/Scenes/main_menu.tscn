@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cvyvk7gx7rjia" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_line.svg" id="2_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://c2e1wxi1eshea" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_border.svg" id="3_n45e2"]
 [ext_resource type="Texture2D" uid="uid://dbixcfcalkyvm" path="res://Sprites/kenney_ui-pack/Vector/Blue/button_rectangle_depth_flat.svg" id="4_opfnp"]
+[ext_resource type="AudioStream" uid="uid://d4c1dgijea4e4" path="res://Audios/Songs/Jammin Bread [c5hUGaYFL1M].mp3" id="5_n45e2"]
+[ext_resource type="Script" uid="uid://blbi2ifynhr4i" path="res://Scripts/audio_general_control.gd" id="6_cp0ys"]
+[ext_resource type="Script" uid="uid://ckd44swua2g7t" path="res://Scripts/audio_music_control.gd" id="6_opfnp"]
 
 [sub_resource type="GDScript" id="GDScript_ce3w2"]
 script/source = "extends VBoxContainer
@@ -34,6 +37,26 @@ func _on_quit_pressed() -> void:
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ce3w2"]
 load_path = "res://.godot/imported/button_rectangle_depth_flat.svg-64a4ecd9e38391ba10cea81c4fb59147.ctex"
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_cp0ys"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_yhxw7"]
+color = Color(0, 0.4745098, 0.95686275, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_trj04"]
+color = Color(0, 0.4745098, 0.95686275, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_e10gc"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_fq3ub"]
+color = Color(0, 0.4745098, 0.95686275, 1)
+thickness = 6
+
 [node name="Main Menu" type="Control" unique_id=317442532]
 layout_mode = 3
 anchors_preset = 15
@@ -55,6 +78,17 @@ offset_top = 199.0
 offset_right = 675.0
 offset_bottom = 399.0
 script = SubResource("GDScript_ce3w2")
+
+[node name="Label" type="Label" parent="Main Buttons" unique_id=1972664673]
+layout_mode = 2
+theme_override_constants/line_spacing = 3
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 19
+text = "JOGO DA 
+TRANSCRIÇÃO
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Start" type="TextureButton" parent="Main Buttons" unique_id=1519509926]
 layout_mode = 2
@@ -102,7 +136,13 @@ text = "SAIR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GenericSong" type="AudioStreamPlayer" parent="." unique_id=541703315]
+stream = ExtResource("5_n45e2")
+autoplay = true
+bus = &"Music"
+
 [node name="Options" type="Panel" parent="." unique_id=1064166420]
+visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 159.0
@@ -113,6 +153,7 @@ offset_bottom = 529.0
 layout_mode = 0
 offset_right = 536.0
 offset_bottom = 37.0
+theme_override_constants/outline_size = 6
 text = "Opções"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -136,7 +177,59 @@ text = "VOLTAR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AudioGeneralControl" type="HSlider" parent="Options" unique_id=2027462310]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 97.0
+offset_right = 490.0
+offset_bottom = 113.0
+theme_override_styles/slider = SubResource("StyleBoxLine_cp0ys")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_yhxw7")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_trj04")
+max_value = 1.0
+step = 0.005
+value = 1.0
+script = ExtResource("6_cp0ys")
+audio_bus_name = "Master"
+
+[node name="Label" type="Label" parent="Options/AudioGeneralControl" unique_id=946323137]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 432.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 6
+text = "Volume Geral"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioMusicControl" type="HSlider" parent="Options" unique_id=1195148473]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 164.0
+offset_right = 492.0
+offset_bottom = 180.0
+theme_override_styles/slider = SubResource("StyleBoxLine_e10gc")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_fq3ub")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_fq3ub")
+max_value = 1.0
+step = 0.005
+value = 1.0
+script = ExtResource("6_opfnp")
+audio_bus_name = "Music"
+
+[node name="Label" type="Label" parent="Options/AudioMusicControl" unique_id=1286763970]
+layout_mode = 0
+offset_top = -46.0
+offset_right = 432.0
+offset_bottom = 23.0
+theme_override_constants/outline_size = 6
+text = "Volume da Música"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Main Buttons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Options/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="Options/AudioGeneralControl" to="Options/AudioGeneralControl" method="_on_value_changed"]
+[connection signal="value_changed" from="Options/AudioMusicControl" to="Options/AudioMusicControl" method="_on_value_changed"]
