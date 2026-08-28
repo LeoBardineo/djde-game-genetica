@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b25p1l4v0wjxf"]
+
+[ext_resource type="Script" uid="uid://b61uasdx1jqa5" path="res://Scenes/minigames/transcricao/transcricao_rna.gd" id="1_rse6c"]
+
+[node name="TranscricaoRna" type="Node2D" unique_id=2045728129]
+script = ExtResource("1_rse6c")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1714571267]
+position_smoothing_enabled = true
+
+[node name="DNA_Container" type="Node2D" parent="." unique_id=774832616]
+position = Vector2(0, 60)
+
+[node name="RNA_Container" type="Node2D" parent="." unique_id=1716645318]
+position = Vector2(0, -60)
