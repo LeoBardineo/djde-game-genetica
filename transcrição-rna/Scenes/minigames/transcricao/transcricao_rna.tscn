@@ -18,7 +18,8 @@ fill_to = Vector2(0.5, 0)
 [node name="TranscricaoRna" type="Node2D" unique_id=2045728129]
 script = ExtResource("1_rse6c")
 base_time_limit = 5.0
-two_star_time_threshold = 25.0
+three_star_time_threshold = 25.0
+two_star_time_threshold = 75.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1714571267]
 position_smoothing_enabled = true
