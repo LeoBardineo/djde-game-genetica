@@ -3,6 +3,12 @@ extends Node2D
 @export var base_scene: PackedScene = preload("res://Scenes/minigames/transcricao/base_node.tscn")
 @export var dna_length: int = 30
 @export var button_error_cooldown: float = 0.25
+@export var max_lives: int = 3
+
+@onready var camera = $Camera2D
+@onready var dna_container = $DNA_Container
+@onready var rna_container = $RNA_Container
+@onready var hud: HUD = $HUD
 
 const DNA_BASES = ["A", "T", "C", "G"]
 const TRANSCRIPTION_MAP = {
@@ -22,14 +28,13 @@ const SPACING = 80
 var sequence = []
 var current_index = 0
 var is_input_locked: bool = false
-
-@onready var camera = $Camera2D
-@onready var dna_container = $DNA_Container
-@onready var rna_container = $RNA_Container
+var current_lives: int = max_lives
+var is_game_over: bool = false
 
 func _ready():
 	generate_dna(dna_length)
 	highlight_current_dna_base()
+	hud.update_hearts(current_lives)
 
 func highlight_current_dna_base() -> void:
 	if current_index < sequence.size():
@@ -48,7 +53,7 @@ func generate_dna(length: int):
 		dna_node.setup(base_type, false)
 
 func _unhandled_input(event):
-	if is_input_locked or current_index >= sequence.size():
+	if is_game_over or is_input_locked or current_index >= sequence.size():
 		return
 
 	for action in ACTION_TO_BASE.keys():
@@ -80,7 +85,11 @@ func check_match(input, expected):
 		if current_dna_node:
 			current_dna_node.play_shake_animation(8.0, 0.25)
 		apply_input_cooldown(button_error_cooldown)
-		print("Errou a base, era para ser " + expected)
+		current_lives -= 1
+		hud.update_hearts(current_lives)
+		if current_lives <= 0:
+			is_game_over = true
+			hud.show_game_over()
 
 func apply_input_cooldown(duration: float) -> void:
 	is_input_locked = true

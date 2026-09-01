@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b25p1l4v0wjxf"]
 
 [ext_resource type="Script" uid="uid://b61uasdx1jqa5" path="res://Scenes/minigames/transcricao/transcricao_rna.gd" id="1_rse6c"]
+[ext_resource type="Script" uid="uid://cgactiulu2n1x" path="res://Scenes/minigames/transcricao/hud.gd" id="2_uaxr7"]
+[ext_resource type="Texture2D" uid="uid://djfpsqy16214a" path="res://Sprites/heart.png" id="2_y0g88"]
 
 [node name="TranscricaoRna" type="Node2D" unique_id=2045728129]
 script = ExtResource("1_rse6c")
@@ -13,3 +15,75 @@ position = Vector2(0, 60)
 
 [node name="RNA_Container" type="Node2D" parent="." unique_id=1716645318]
 position = Vector2(0, -60)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=909683830]
+script = ExtResource("2_uaxr7")
+
+[node name="HeartsContainer" type="HBoxContainer" parent="HUD" unique_id=339319379]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 52.0
+offset_right = -52.0
+offset_bottom = 92.0
+grow_horizontal = 0
+
+[node name="Heart1" type="TextureRect" parent="HUD/HeartsContainer" unique_id=2073507181]
+layout_mode = 2
+texture = ExtResource("2_y0g88")
+expand_mode = 2
+
+[node name="Heart2" type="TextureRect" parent="HUD/HeartsContainer" unique_id=295381855]
+layout_mode = 2
+texture = ExtResource("2_y0g88")
+expand_mode = 2
+
+[node name="Heart3" type="TextureRect" parent="HUD/HeartsContainer" unique_id=968626108]
+layout_mode = 2
+texture = ExtResource("2_y0g88")
+expand_mode = 2
+
+[node name="GameOverPanel" type="Panel" parent="HUD" unique_id=1551030401]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/GameOverPanel" unique_id=1224069458]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Fim de jogo"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="HUD/GameOverPanel" unique_id=718518987]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = 76.0
+offset_right = 38.0
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Reiniciar"
