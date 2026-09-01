@@ -3,9 +3,22 @@
 [ext_resource type="Script" uid="uid://b61uasdx1jqa5" path="res://Scenes/minigames/transcricao/transcricao_rna.gd" id="1_rse6c"]
 [ext_resource type="Script" uid="uid://cgactiulu2n1x" path="res://Scenes/minigames/transcricao/hud.gd" id="2_uaxr7"]
 [ext_resource type="Texture2D" uid="uid://djfpsqy16214a" path="res://Sprites/heart.png" id="2_y0g88"]
+[ext_resource type="Texture2D" uid="uid://bor25tnjg8k71" path="res://Sprites/star.png" id="4_it4q2"]
+
+[sub_resource type="Gradient" id="Gradient_uaxr7"]
+offsets = PackedFloat32Array(0, 0.9945946, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uaxr7"]
+gradient = SubResource("Gradient_uaxr7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="TranscricaoRna" type="Node2D" unique_id=2045728129]
 script = ExtResource("1_rse6c")
+base_time_limit = 5.0
+two_star_time_threshold = 25.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1714571267]
 position_smoothing_enabled = true
@@ -44,6 +57,17 @@ layout_mode = 2
 texture = ExtResource("2_y0g88")
 expand_mode = 2
 
+[node name="TimerCircle" type="TextureProgressBar" parent="HUD" unique_id=732840933]
+offset_left = 52.0
+offset_top = 52.0
+offset_right = 92.0
+offset_bottom = 92.0
+max_value = 1.0
+step = 0.001
+value = 1.0
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_uaxr7")
+
 [node name="GameOverPanel" type="Panel" parent="HUD" unique_id=1551030401]
 visible = false
 anchors_preset = 15
@@ -52,19 +76,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HUD/GameOverPanel" unique_id=1224069458]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameOverPanel" unique_id=1588007183]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -89.0
+offset_top = -43.5
+offset_right = 89.0
+offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TitleLabel" type="RichTextLabel" parent="HUD/GameOverPanel/VBoxContainer" unique_id=1224069458]
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Fim de jogo"
 fit_content = true
@@ -72,18 +99,45 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RestartButton" type="Button" parent="HUD/GameOverPanel" unique_id=718518987]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -38.0
-offset_top = 76.0
-offset_right = 38.0
-offset_bottom = 107.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="StarContainer" type="HBoxContainer" parent="HUD/GameOverPanel/VBoxContainer" unique_id=1913670281]
+layout_mode = 2
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="HUD/GameOverPanel/VBoxContainer/StarContainer" unique_id=301224581]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_it4q2")
+expand_mode = 3
+
+[node name="Star2" type="TextureRect" parent="HUD/GameOverPanel/VBoxContainer/StarContainer" unique_id=448705299]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_it4q2")
+expand_mode = 3
+
+[node name="Star3" type="TextureRect" parent="HUD/GameOverPanel/VBoxContainer/StarContainer" unique_id=345429407]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_it4q2")
+expand_mode = 3
+
+[node name="TimeSpentLabel" type="RichTextLabel" parent="HUD/GameOverPanel/VBoxContainer" unique_id=1073616175]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalScoreLabel" type="RichTextLabel" parent="HUD/GameOverPanel/VBoxContainer" unique_id=1854139029]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="HUD/GameOverPanel/VBoxContainer" unique_id=718518987]
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Reiniciar"
