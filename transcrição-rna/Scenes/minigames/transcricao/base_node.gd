@@ -1,15 +1,14 @@
 extends Node2D
 class_name BaseNode
 
-@onready var label: RichTextLabel = $RichTextLabel
-@onready var panel: Panel = $Panel
+@onready var texture_rect: TextureRect = $TextureRect
 
-const BASE_COLORS = {
-	"A": Color("#ff5555"),
-	"U": Color("#ffb86c"),
-	"T": Color("#f1fa8c"),
-	"C": Color("#8be9fd"),
-	"G": Color("#50fa7b")
+const BASE_TEXTURES: Dictionary = {
+	"A": preload("res://Sprites/minigames/transcricao/letras/A_LARANJA_FRONTAL.png"),
+	"T": preload("res://Sprites/minigames/transcricao/letras/A_ROSA_FRONTAL.png"),
+	"C": preload("res://Sprites/minigames/transcricao/letras/C_VERDE_FRONTAL.png"),
+	"G": preload("res://Sprites/minigames/transcricao/letras/G_ROXO_FRONTAL.png"),
+	"U": preload("res://Sprites/minigames/transcricao/letras/U_ROSA_FRONTAL.png")
 }
 
 var base_type: String = ""
@@ -27,21 +26,19 @@ func setup(type: String, transcribed: bool = false) -> void:
 	
 	base_initial_x = position.x
 	base_initial_y = position.y
-	label.text = type
 	_apply_visuals()
 
 func _apply_visuals() -> void:
-	if not BASE_COLORS.has(base_type):
+	if not BASE_TEXTURES.has(base_type):
+		push_warning("Textura não encontrada para a base: %s" % base_type)
 		return
-		
-	var final_color = BASE_COLORS[base_type]
+	
+	texture_rect.texture = BASE_TEXTURES[base_type]
 	
 	if is_transcribed:
-		final_color = final_color.darkened(0.2)
-
-	var new_stylebox = panel.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
-	new_stylebox.bg_color = final_color
-	panel.add_theme_stylebox_override("panel", new_stylebox)
+		texture_rect.modulate = Color(0.85, 0.85, 0.85, 1.0)
+	else:
+		texture_rect.modulate = Color.WHITE
 
 func highlight_up(offset_y: float = -20.0, duration: float = 0.15) -> void:
 	var tween = create_tween()
@@ -58,7 +55,7 @@ func appear_and_settle(spawn_offset_y: float = -20.0, duration: float = 0.15) ->
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "position:y", base_initial_y, duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "modulate:a", 1.0, duration)
-	
+
 func play_sucess_animation() -> void:
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
@@ -77,8 +74,9 @@ func play_shake_animation(shake_offset: float = 6.0, shake_duration: float = 0.2
 	shake_tween.tween_property(self, "position:x", base_initial_x + (shake_offset / 2.0), step_time)
 	shake_tween.tween_property(self, "position:x", base_initial_x, step_time)
 	
-	var red_time_percentage = 0.75
-	var white_time_percentage = red_time_percentage - 1
+	const FLASH_RED_RATIO: float = 0.75
+	const FLASH_RESTORE_RATIO: float = 1.0 - FLASH_RED_RATIO
+	
 	var flash_tween = create_tween()
-	flash_tween.tween_property(panel, "modulate", Color(2.0, 0.3, 0.3), shake_duration * red_time_percentage)
-	flash_tween.tween_property(panel, "modulate", Color.WHITE, shake_duration * white_time_percentage)
+	flash_tween.tween_property(texture_rect, "modulate", Color(2.0, 0.4, 0.4), shake_duration * FLASH_RED_RATIO)
+	flash_tween.tween_property(texture_rect, "modulate", Color.WHITE if not is_transcribed else Color(0.85, 0.85, 0.85), shake_duration * FLASH_RESTORE_RATIO)
